@@ -8,14 +8,55 @@
 .tag {
     background-color: white;
     font-family: Arial;
-    width: 400px;
     border-radius: 15px;
-    padding: 5px;
     position: fixed;
+    overflow: hidden;
+    width: 210px;
+}
+
+.section {
+    display: flex;
+    margin: 5px;
 }
 
 h3 {
-    color: #888;
+    color: white;
+    font-weight: 200;
+    font-size: 12px;
+    padding: 5px;
+    margin: 0;
+    background: #3f89f9;
+    background-image: linear-gradient(to left, #3f89f9 , #6787b6);
+    display: block;
+    width: 200px;
+    word-wrap:break-word;
+}
+
+p {
+    font-size: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 6px;
+    padding-left: 2px;
+    padding-right: 4px;
+    padding-bottom: 6px;
+    width: 110px;
+    word-wrap:break-word;
+}
+
+a {
+    font-size: 12px;
+    border: solid 2px green;
+    border-radius: 7px;
+    background-color: white;
+    text-decoration: none;
+    color: green;
+    padding: 2px;
+    display: none;
+}
+
+a:hover {
+    opacity: .4;
 }
 
 .green {
@@ -27,5 +68,7 @@ h3 {
 }
 
 .img {
-    width: 200px;
+    width: 75px;
+    height: 35px;
+    right: 2px;
 }
