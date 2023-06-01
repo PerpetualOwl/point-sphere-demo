@@ -6,6 +6,7 @@ import Papa from 'papaparse';
 
 var numtags = 0;
 var tags = [];
+var tag_timing = [];
 
 const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRoW-UgmqklRfBQ6CyALrvWRPsqtQhSmSva21vC6rRwJgOrXgcr9fHqTcqiQjnQnSUQx0HVbJX36pPt/pub?gid=0&single=true&output=csv';
 
@@ -19,7 +20,7 @@ fetch(csvUrl)
 
     // Use the jsonData variable as needed
     numtags = jsonData.length;
-    
+
     for (var i = 0; i < numtags; i++) {
         //add to DOM all these tags, and then append it to tags variable
         var tag = document.createElement("div");
@@ -54,7 +55,9 @@ fetch(csvUrl)
         }
         container.appendChild(tag);
 
+        tag_timing.push(jsonData[i]["timing"]);
         tags.push(tag);
+
     }
 })
   .catch(error => {
@@ -181,9 +184,12 @@ function get_coords() {
 function tag_highlighting() {
     var tag = tags[chosen_index];
     tag.style.zIndex = "99";
-    if (end_time - Date.now() > 4000) {
+
+    var timing = tag_timing[chosen_index] * 1000;
+
+    if (end_time - Date.now() > timing - 1000) {
         // move to position
-        var sinusoidal = Math.cos(Math.PI * (Date.now() - end_time + 6000) / 1000) / 2 + 0.5;
+        var sinusoidal = Math.cos(Math.PI * (Date.now() - end_time + timing + 1000) / 1000) / 2 + 0.5;
         tag.style.scale = (1 + .4 * sinusoidal).toString();
         tag.style.opacity = (0.4 + 0.6 * sinusoidal).toString();
         tag.style.top = (mvmt_y * (1 - sinusoidal) + position_top * sinusoidal).toString() + "px";
@@ -208,11 +214,11 @@ function tag_highlighting() {
 
 function restart_animation() {
     chosen_index = Math.floor(Math.random() * (numtags - 1));
-    if (chosen_index <= last_chosen) {
+    if (chosen_index >= last_chosen) {
         chosen_index++;
     }
     last_chosen = chosen_index;
-    end_time = Date.now() + 5000; // 5 second cycle: 1 out, 3 stay, 1 down
+    end_time = Date.now() + tag_timing[chosen_index] * 1000; // 5 second cycle: 1 out, 3 stay, 1 down
     position_top = (Math.random() + 0.1) / 1.8 * window.innerHeight;
     position_left = (Math.random() + 0.1) / 1.6 * window.innerWidth;
 }
@@ -222,7 +228,7 @@ function animate() {
     requestAnimationFrame(animate);
 
     renderer.render(scene, camera);
-    rotation += 0.002;
+    rotation += 0.0009;
     if (rotation > 360) {
         rotation = 0;
     }
