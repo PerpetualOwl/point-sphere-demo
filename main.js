@@ -171,7 +171,7 @@ function get_coords() {
         if (i != chosen_index) {
             tags[i].style.top = (pos.y).toString() + "px";
             tags[i].style.left = (pos.x).toString() + "px";
-            tags[i].style.opacity = ".4";
+            tags[i].style.opacity = ".2";
             tags[i].style.scale = "1";
             tags[i].style.zIndex = "0";
         } else {
@@ -191,7 +191,7 @@ function tag_highlighting() {
         // move to position
         var sinusoidal = Math.cos(Math.PI * (Date.now() - end_time + timing + 1000) / 1000) / 2 + 0.5;
         tag.style.scale = (1 + .4 * sinusoidal).toString();
-        tag.style.opacity = (0.4 + 0.6 * sinusoidal).toString();
+        tag.style.opacity = (0.2 + 0.8 * sinusoidal).toString();
         tag.style.top = (mvmt_y * (1 - sinusoidal) + position_top * sinusoidal).toString() + "px";
         tag.style.left = (mvmt_x * (1 - sinusoidal) + position_left * sinusoidal).toString() + "px";
 
@@ -201,11 +201,11 @@ function tag_highlighting() {
         tag.style.opacity = "1";
         tag.style.top = position_top.toString() + "px";
         tag.style.left = position_left.toString() + "px";
-    } else if (end_time - Date.now() > 0) {
+    } else if (end_time - Date.now() >= 0) {
         // move back
         var sinusoidal = 1 - (Math.cos(Math.PI * (Date.now() - end_time + 2000) / 1000) / 2 + 0.5);
         tag.style.scale = (1 + .4 * sinusoidal).toString();
-        tag.style.opacity = (0.4 + 0.6 * sinusoidal).toString();
+        tag.style.opacity = (0.2 + 0.8 * sinusoidal).toString();
         tag.style.top = (mvmt_y * (1 - sinusoidal) + position_top * sinusoidal).toString() + "px";
         tag.style.left = (mvmt_x * (1 - sinusoidal) + position_left * sinusoidal).toString() + "px";
 
